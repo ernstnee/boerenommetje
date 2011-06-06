@@ -1,4 +1,5 @@
 # Django settings for boerenommetje project.
+# Ernst did a good job on making his first commit.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
