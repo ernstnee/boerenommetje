@@ -1,20 +1,6 @@
 from django.db import models
 
-class Route(models.Model):
-	routename = models.CharField(max_length=255)
-	icon = models.CharField(max_length=255)
-	def __unicode__(self):
-		return self.routename
-
-class Cat(models.Model):
-	catname = models.CharField(max_length=255)
-	colour = models.CharField(max_length=255)
-	def __unicode__(self):
-		return self.catname
-
 class Point(models.Model):
-	route = models.ForeignKey(Route)
-	cat = models.ForeignKey(Cat)
 	attribution = models.CharField(max_length=255)
 	title = models.CharField(max_length=65)
 	lat = models.FloatField()
@@ -36,3 +22,23 @@ class Point(models.Model):
 	pub_date = models.DateTimeField('aanmaakdatum') #aanmaakdatum = date published
 	def __unicode__(self):
 		return self.title
+
+class Action(models.Model):
+	METHOD_CHOICES = (
+        ('GET', 'GET'),
+        ('POST', 'POST'),
+	)
+	point = models.ForeignKey(Point)		
+	label = models.CharField(max_length=255)
+	url = models.CharField(max_length=255)
+	autoTriggerRange = models.IntegerField(max_length=10, blank=True, null=True)
+	autoTriggerOnly = models.IntegerField(max_length=1, blank=True, null=True)
+	contentType = models.CharField(max_length=255, default='application/vnd.layar.internal')
+	method = models.CharField(max_length=4, default='GET', choices=METHOD_CHOICES)
+	activityType = models.IntegerField(max_length=2)
+	params = models.CharField(max_length=255, null=True)
+	closeBiw = models.IntegerField(max_length=1, default=0)
+	showActivity = models.IntegerField(max_length=1, default=1)
+	activityMessage = models.CharField(max_length=255, null=True)
+	def __unicode__(self):
+		return self.label
