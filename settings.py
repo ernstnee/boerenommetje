@@ -109,6 +109,8 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+MAPS_API_KEY = "ABQIAAAAo8PzS2sFn7OYFZQWk2MNFBSubROkH-XhZwGsiEd5fG-Vjol4ABQWtihbU4Ea4ozvQnXSpV1cj35X7Q"
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
