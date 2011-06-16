@@ -8,8 +8,8 @@ class PointOfInterestAdmin(admin.ModelAdmin):
 				'fields': ('attribution', 'category', 'title', 'imageURL', 'line2', 'line3', 'line4', 'pub_date', 'lat', 'lon')
 		}),
 	)
-	list_filter = ('attribution',)
-	list_display = ('__unicode__', 'attribution')
+	#list_filter = ('attribution',)
+	list_display = ('__unicode__', 'attribution', 'category')
 	search_fields = ['title']
 	
 	class Media:

@@ -1,5 +1,4 @@
 # Django settings for boerenommetje project.
-# Ernst did a good job on making his first commit.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -28,11 +27,11 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Europe/Amsterdam'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'nl-NL'
 
 SITE_ID = 1
 
@@ -104,9 +103,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'boerenommetje.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    "/home/teamsplendor/boerenommetje/templates"
 )
 
 MAPS_API_KEY = "ABQIAAAAo8PzS2sFn7OYFZQWk2MNFBSubROkH-XhZwGsiEd5fG-Vjol4ABQWtihbU4Ea4ozvQnXSpV1cj35X7Q"
