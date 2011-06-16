@@ -1,11 +1,11 @@
-from paths.models import PointOfInterest, Action
+from paths.models import PointOfInterest, Action, TypeOfAction, Route
 from django.contrib import admin
 import settings
 
 class PointOfInterestAdmin(admin.ModelAdmin):
 	fieldsets = (
 		(None, { 
-				'fields': ('attribution', 'category', 'title', 'imageURL', 'location', 'line2', 'line3', 'line4', 'pub_date', 'lat', 'lon')
+				'fields': ('attribution', 'category', 'title', 'imageURL', 'line2', 'line3', 'line4', 'pub_date', 'lat', 'lon')
 		}),
 	)
 	list_filter = ('attribution',)
@@ -19,6 +19,14 @@ class PointOfInterestAdmin(admin.ModelAdmin):
             settings.MEDIA_URL +'/admin/long-lat-render.js'
         ]
 
-admin.site.register(PointOfInterest, PointOfInterestAdmin)
-admin.site.register(Action)
+class ActionAdmin(admin.ModelAdmin):
+	fieldsets = (
+		(None, { 
+				'fields': ('pointofi', 'typeofaction', 'url')
+		}),
+	)
 
+admin.site.register(PointOfInterest, PointOfInterestAdmin)
+admin.site.register(Action, ActionAdmin)
+admin.site.register(Route)
+admin.site.register(TypeOfAction)
