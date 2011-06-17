@@ -2,10 +2,12 @@ from paths.models import PointOfInterest, Action
 from django.contrib import admin
 import settings
 
-class ActionInline(admin.ModelAdmin):
+class ActionInline(admin.StackedInline):
+	model = Action
+	extra = 4	
 	fieldsets = (
 		(None, { 
-				'fields': ('pointofi', 'typeofaction', 'url')
+				'fields': ('pointofi', 'label', 'activityType', 'url')
 		}),
 	)
 
@@ -15,10 +17,11 @@ class PointOfInterestAdmin(admin.ModelAdmin):
 				'fields': ('attribution', 'category', 'title', 'imageURL', 'line2', 'line3', 'line4', 'pub_date', 'lat', 'lon')
 		}),
 	)
-	#list_filter = ('attribution',)
+	list_filter = ('attribution', 'category')
 	list_display = ('__unicode__', 'attribution', 'category')
 	search_fields = ['title']
-	
+	inlines = [ActionInline]
+
 	class Media:
 		js = [
             'http://code.jquery.com/jquery-1.4.2.min.js', 
@@ -27,4 +30,3 @@ class PointOfInterestAdmin(admin.ModelAdmin):
         ]
 
 admin.site.register(PointOfInterest, PointOfInterestAdmin)
-admin.site.register(Action)
