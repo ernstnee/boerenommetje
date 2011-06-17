@@ -1,6 +1,13 @@
-from paths.models import PointOfInterest, Action, TypeOfAction, Route
+from paths.models import PointOfInterest, Action
 from django.contrib import admin
 import settings
+
+class ActionInline(admin.ModelAdmin):
+	fieldsets = (
+		(None, { 
+				'fields': ('pointofi', 'typeofaction', 'url')
+		}),
+	)
 
 class PointOfInterestAdmin(admin.ModelAdmin):
 	fieldsets = (
@@ -19,14 +26,5 @@ class PointOfInterestAdmin(admin.ModelAdmin):
             settings.MEDIA_URL +'/admin/long-lat-render.js'
         ]
 
-class ActionAdmin(admin.ModelAdmin):
-	fieldsets = (
-		(None, { 
-				'fields': ('pointofi', 'typeofaction', 'url')
-		}),
-	)
-
 admin.site.register(PointOfInterest, PointOfInterestAdmin)
-admin.site.register(Action, ActionAdmin)
-admin.site.register(Route)
-admin.site.register(TypeOfAction)
+admin.site.register(Action)

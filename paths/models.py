@@ -1,18 +1,13 @@
 from django.contrib.gis.db import models
 from paths.widgets import *
 
-class Route(models.Model):
-	title = models.CharField('Route', max_length=65)
-	def __unicode__(self):
-		return self.title
-
 class PointOfInterest(models.Model):
 	CATEGORY_CHOICES = (
 		('Weetjes', 'Weetjes'),
 		('Aanbiedingen', 'Aanbiedingen'),
 		('Vermaak', 'Vermaak'),
 	)
-	attribution = models.ForeignKey(Route)
+	attribution = models.CharField('Route', max_length=65)
 	title = models.CharField('Titel', max_length=65)
 	lat = models.FloatField()
 	lon = models.FloatField()
@@ -34,27 +29,29 @@ class PointOfInterest(models.Model):
 	def __unicode__(self):
 		return self.title
 
-class TypeOfAction(models.Model):
-	label = models.CharField(max_length=10)
-	activitytype = models.IntegerField(max_length=1)
-	contenttype = models.CharField(max_length=50)
-	def __unicode__(self):
-		return self.label
-
 class Action(models.Model):
-	METHOD_CHOICES = (
-        ('GET', 'GET'),
-        ('POST', 'POST'),
+	ACT_CHOICES = (
+        ('1', 'Website'),
+        ('2', 'Audio') ,
+        ('3', 'Video'),
+        ('4', 'Bellen'),
+        ('5', 'E-mail'),
 	)
-	pointofi = models.ForeignKey(PointOfInterest)		
-	typeofaction = models.ForeignKey(TypeOfAction)
-	url = models.CharField(max_length=255)
+	CONT_CHOICES = (
+        ('text/html', 'Website'),
+        ('audio/mpeg', 'Audio'),
+        ('video/mp4', 'Video'),
+        ('application/vnd.layar.internal', 'Bellen/E-mail'),
+	)
+	pointofi = models.ForeignKey(PointOfInterest, verbose_name="POI")		
+	label = models.CharField(max_length=10)
+	url = models.CharField('URL', max_length=255)
 	autoTriggerRange = models.IntegerField(max_length=10, blank=True, null=True)
 	autoTriggerOnly = models.IntegerField(max_length=1, blank=True, null=True)
-	#contentType = models.CharField(max_length=255, default='INFO'[0], choices=LABELS)
-	method = models.CharField(max_length=4, default='GET', choices=METHOD_CHOICES)
-	#activityType = models.IntegerField(max_length=2, default='INFO'[0], choices=LABELS)
-	params = models.CharField(max_length=255, null=True)
+	contentType = models.CharField(max_length=255, default='INFO'[0], choices=CONT_CHOICES)
+	method = models.CharField(max_length=4, default='GET')
+	activityType = models.IntegerField(max_length=2, default='INFO'[0], choices=ACT_CHOICES	)
+	params = models.CharField(max_length=255, blank=True, null=True)
 	closeBiw = models.IntegerField(max_length=1, default=0)
 	showActivity = models.IntegerField(max_length=1, default=1)
 	activityMessage = models.CharField(max_length=255, null=True)
